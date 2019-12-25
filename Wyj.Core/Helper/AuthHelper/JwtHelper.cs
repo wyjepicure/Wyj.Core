@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Wyj.Core.Helper.AuthHelper
@@ -17,7 +20,7 @@ namespace Wyj.Core.Helper.AuthHelper
         {
             string iss = Appsettings.app(new string[] { "Audience", "Issuer" });
             string aud = Appsettings.app(new string[] { "Audience", "Audience" });
-            string secret = AppSecretConfig.Audience_Secret_String;
+            string secret = Appsettings.app(new string[] { "Audience", "Secret" });
 
             //var claims = new Claim[] //old
             var claims = new List<Claim>

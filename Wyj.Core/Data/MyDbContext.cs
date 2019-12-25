@@ -23,6 +23,18 @@ namespace Wyj.Core.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.Entity<UserRole>()
+                .HasKey(t => new { t.UserId,t.RoleId });
+
+            modelBuilder.Entity<UserRole>()
+                .HasOne(pt => pt.User)
+                .WithMany(p => p.UserRoles)
+                .HasForeignKey(pt => pt.UserId);
+
+            modelBuilder.Entity<UserRole>()
+                .HasOne(pt => pt.Role)
+                .WithMany(t => t.UserRoles)
+                .HasForeignKey(pt => pt.RoleId);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -31,7 +43,7 @@ namespace Wyj.Core.Data
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("defaultDB"));
 
         }
-
+        public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<User> Users { get; set; }
     }
 }

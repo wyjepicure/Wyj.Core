@@ -14,5 +14,6 @@ namespace Wyj.Core.Models
         public string Email { get; set; }
 
         public DateTime CreateTime { get; set; }
+        public List<UserRole> UserRoles { get; set; }
     }
 }
