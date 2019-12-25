@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Wyj.Core.IRepository;
 using Wyj.Core.IRespository;
 using Wyj.Core.IServices;
@@ -21,6 +22,7 @@ namespace Wyj.Core.Services
             _userRoleRepository = userRoleRepository;
             _unitOfWork = unitOfWork;
         }
+        [HttpPost("SaveUserRole")]
         public async Task<UserRole> SaveUserRole(int uid, int rid)
         {
             UserRole userRole = new UserRole(uid, rid);

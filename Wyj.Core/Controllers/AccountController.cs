@@ -56,7 +56,7 @@ namespace Wyj.Core.Controllers
 
         }
       
-        [HttpGet("login")]
+        [HttpGet("GetJwtStr")]
         public async Task<object> GetJwtStr(string userName, string password)
         {
             string jwtStr = string.Empty;

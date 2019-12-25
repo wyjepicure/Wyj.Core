@@ -17,6 +17,8 @@ namespace Wyj.Core.AutoMapper
         {
             CreateMap<User, CreateUpdateUserDto>();
             CreateMap<CreateUpdateUserDto, User>();
+            CreateMap<Role, CreateOrUpdateRoleDto>();
+            CreateMap<CreateOrUpdateRoleDto, Role>();
         }
     }
 }

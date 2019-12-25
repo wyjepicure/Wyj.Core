@@ -39,7 +39,9 @@ namespace Wyj.Core
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region 模型验证
             services.AddSingleton<IValidator<CreateUpdateUserDto>, UserValidator>();
+            services.AddSingleton<IValidator<CreateOrUpdateRoleDto>, AddRoleValidator>();
             services.AddControllers().AddFluentValidation();
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -61,13 +63,27 @@ namespace Wyj.Core
                     return new BadRequestObjectResult(result);
                 };
             });
+
+
+            #endregion
+
+            #region 注入
+
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<MyDbContext>();
-            #region Swagger
+            services.AddScoped<IRoleServices, RoleServices>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+
+            services.AddScoped<IUserRoleServices, UserRoleServices>();
+            services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUnitOfWork, EFUnitOfWork>();
+            #endregion
+
+            #region Swagger
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("V1", new OpenApiInfo
